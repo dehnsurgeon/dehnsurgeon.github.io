@@ -7,8 +7,8 @@ img {
 }
 
 .hyperlink {
-	background: navy;
+	background: white;
 }
 .hyperlink:hover img {
-	opacity: 0.5;
+	opacity: 0.9;
 }
