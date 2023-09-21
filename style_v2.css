@@ -1,0 +1,14 @@
+div {
+	position: relative;
+	float: left;
+}
+img {
+	display: block;
+}
+
+.hyperlink {
+	background-color: white;
+}
+.hyperlink:hover img {
+	opacity: 0.9;
+}
