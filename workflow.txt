@@ -1,5 +1,4 @@
 Write handwritten content as PNGs.
-Compress each image with TinyJPG.
-Place together in GIMP,
-compressing at each stage.
+Place elements/text together into small
+"pages" and compress each with TinyJPG.
 Add images to .html and publish.
