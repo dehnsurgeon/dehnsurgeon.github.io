@@ -9,10 +9,17 @@ img {
 }
 
 .hyperlink {
-	margin: auto;
-	padding: auto;
 	background-color: white;
 }
+
+.hyperlink.pagetop {
+	padding-bottom: 1px;
+}
+
+.hyperlink.pagebottom {
+	padding-top: 1px;
+}
+
 .hyperlink:hover img {
 	opacity: 0.9;
 }
