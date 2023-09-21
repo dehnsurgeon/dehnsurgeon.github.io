@@ -1,3 +1,5 @@
+html,body { margin:0; padding: 0; }
+
 div {
 	position: relative;
 	float: left;
@@ -7,6 +9,8 @@ img {
 }
 
 .hyperlink {
+	margin: auto;
+	padding: auto;
 	background-color: white;
 }
 .hyperlink:hover img {
