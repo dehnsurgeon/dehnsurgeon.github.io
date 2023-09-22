@@ -1,7 +1,12 @@
 A polygon with n sides was an example of an object with a finite collection of symmetries. This post will focus on another example:
 the roots of a polynomial (the solutions to {italic: the polynomial} = 0).
 
-[Etymology: poly-gon meaning many angles and poly-nomial meaning many terms]
+[Etymology:	poly-gon
+		many angles
+
+		poly-nomial
+		many terms		
+]
 
 {section: Number Fields}
 
