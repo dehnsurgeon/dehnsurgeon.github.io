@@ -1,4 +1,0 @@
-Write handwritten content as PNGs.
-Place elements/text together into small
-"pages" and compress each with TinyJPG.
-Add images to .html and publish.
