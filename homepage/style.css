@@ -4,14 +4,14 @@ html,body {
 	font-family: Arial, sans-serif;
 	font-size: 30px; /* for older browsers */
 	font-size: 3.5vw;
-	background-color: #FFFDF5;
+	background-color: #1A2F68;
 }
 
 h1.title {
 	margin-top: 40px;
 	text-align: center;
 	color: #ef96ff;
-	border-bottom: 8px solid #57c4d0;
+	border-bottom: 8px solid #FFFDF5;
 }
 
 #nav {
