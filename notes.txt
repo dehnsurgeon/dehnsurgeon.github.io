@@ -1,6 +1,6 @@
 white #FFFDF5
 black #0C0C0C
 blue #1A2F68
-pink #FF2F68
+pink #e5295b
 purple #B279F2
 green #39BC37
