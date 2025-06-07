@@ -15,10 +15,10 @@ h1.title {
 	border-bottom: 8px solid #FFFDF5;
 }
 
-.center {
+.banner {
     margin: auto;
-    padding: 10px;
-    width: 50%;
+    padding: 1px;
+    width: 40%;
 }
 
 #nav {

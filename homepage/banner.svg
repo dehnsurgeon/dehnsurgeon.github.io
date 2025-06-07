@@ -4,9 +4,9 @@
 <svg
    version="1.1"
    id="svg1"
-   width="919"
-   height="374"
-   viewBox="0 0 919 374"
+   width="658.61261"
+   height="240.75949"
+   viewBox="0 0 658.61261 240.75949"
    sodipodi:docname="numberfields.svg"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -6763,7 +6763,7 @@
          id="feGaussianBlur1451" />
     </filter>
     <filter
-       style="color-interpolation-filters:sRGB;"
+       style="color-interpolation-filters:sRGB"
        inkscape:label="Roughen"
        id="filter1495"
        x="0"
@@ -6786,7 +6786,7 @@
          id="feDisplacementMap1495" />
     </filter>
     <filter
-       style="color-interpolation-filters:sRGB;"
+       style="color-interpolation-filters:sRGB"
        inkscape:label="Roughen"
        id="filter1496"
        x="-0.0022460396"
@@ -6809,7 +6809,7 @@
          id="feDisplacementMap1496" />
     </filter>
     <filter
-       style="color-interpolation-filters:sRGB;"
+       style="color-interpolation-filters:sRGB"
        inkscape:label="Brilliance"
        id="filter1501"
        x="-0.001983805"
@@ -6831,8 +6831,8 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="1.3665089"
-     inkscape:cx="453.71093"
-     inkscape:cy="236.73465"
+     inkscape:cx="341.74677"
+     inkscape:cy="162.09188"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
      inkscape:window-x="-8"
@@ -6842,7 +6842,8 @@
   <g
      id="layer3"
      inkscape:label="Water"
-     style="filter:url(#filter1495)">
+     style="filter:url(#filter1495)"
+     transform="translate(-112.69594,-74.642761)">
     <path
        style="fill:#1d74b4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.477;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        id="path517"
@@ -6951,7 +6952,8 @@
   <g
      id="layer2"
      inkscape:label="Grass"
-     style="display:inline;filter:url(#filter1496)">
+     style="display:inline;filter:url(#filter1496)"
+     transform="translate(-112.69594,-74.642761)">
     <path
        style="fill:#466233;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.477;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;filter:url(#filter517)"
        id="path290"
@@ -7479,7 +7481,8 @@
   </g>
   <g
      id="layer4"
-     inkscape:label="Shoots">
+     inkscape:label="Shoots"
+     transform="translate(-112.69594,-74.642761)">
     <path
        style="fill:#5fb438;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.477;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
        id="path545"
@@ -7716,7 +7719,8 @@
   <g
      id="layer5"
      inkscape:label="Flowers"
-     style="filter:url(#filter1501)">
+     style="filter:url(#filter1501)"
+     transform="translate(-112.69594,-74.642761)">
     <path
        style="fill:#7d777a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.477;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;filter:url(#filter669)"
        id="path647"
@@ -9261,7 +9265,8 @@
   <g
      id="layer6"
      inkscape:label="Rationals"
-     style="mix-blend-mode:normal">
+     style="mix-blend-mode:normal"
+     transform="translate(-112.69594,-74.642761)">
     <path
        style="fill:#f9ffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2.677;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="path1385"
