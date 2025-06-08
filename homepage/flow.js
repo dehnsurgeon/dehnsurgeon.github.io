@@ -5,15 +5,50 @@ const ctx = canvas.getContext("2d");
 const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
 
-// function to generate random number
+// generate random number
 function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// function to generate random color
+// generate random color
 function randomRGB() {
     return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
+
+// draw circle
+function circle(x, y, r, color) {
+    ctx.beginPath();
+    ctx.fillStyle = color;
+    ctx.arc(x, y, r, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+/*
+    DROPS
+*/
+
+let drops = [];
+
+class Drop {
+    constructor(x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+    show() {
+        circle(this.x, this.y, this.r, 'black');
+    }
+}
+
+document.onmousedown = function (e) {
+    let drop = new Drop(e.pageX, e.pageY, 50)
+    drops.push(drop);
+}
+
+
+/*
+    BALLS
+*/
 
 class Ball {
     constructor(x, y, velX, velY, color, size) {
@@ -24,11 +59,8 @@ class Ball {
         this.color = color;
         this.size = size;
     }
-    draw() {
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        ctx.fill();
+    draw() { 
+        circle(this.x, this.y, this.size, this.color);
     }
     update() {
         if (this.x + this.size >= width) {
@@ -83,14 +115,26 @@ while (balls.length < 25) {
     balls.push(ball);
 }
 
-function loop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const ball of balls) {
+
+/*
+    ANIMATION
+*/
+
+function draw() {
+    /*for (const ball of balls) {
         ball.draw();
         ball.update();
         ball.collisionDetect();
+    }*/
+    for (const drop of drops) {
+        drop.show();
     }
+}
 
+// animation loop
+function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    draw();
     requestAnimationFrame(loop);
 }
 
