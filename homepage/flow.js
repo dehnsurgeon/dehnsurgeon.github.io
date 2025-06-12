@@ -122,7 +122,7 @@ class Drop {
 }
 
 document.onmousedown = function (e) {
-    const drop = new Drop(e.pageX, e.pageY, width/20, randomRGB())
+    const drop = new Drop(e.pageX, e.pageY, 2*Math.sqrt(window.innerWidth), randomRGB())
 
     for (let other of drops) {
         drop.marble(other);
