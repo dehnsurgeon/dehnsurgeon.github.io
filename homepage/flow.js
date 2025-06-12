@@ -1,9 +1,22 @@
-// setup canvas
+/*
+    SETUP CANVAS
+*/
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
+
+window.onresize = function (e) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+
+/*
+    USEFUL FUNCTIONS
+*/
 
 // generate random number
 function random(min, max) {
@@ -23,96 +36,99 @@ function circle(x, y, r, color) {
     ctx.fill();
 }
 
+
 /*
-    DROPS
+    VECTOR CLASS
+*/
+
+class Vector {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    add(other) {
+        this.x = this.x + other.x;
+        this.y = this.y + other.y;
+    }
+    sub(other) {
+        this.x = this.x - other.x;
+        this.y = this.y - other.y;
+    }
+    scale(c) {
+        this.x = this.x * c;
+        this.y = this.y * c;
+    }
+    length() {
+        return Math.sqrt((this.x * this.x) + (this.y * this.y));
+    }
+    lengthSq() {
+        return (this.x * this.x) + (this.y * this.y);
+    }
+    copy () {
+        const v = new Vector(this.x, this.y);
+        return v;
+    }
+    set (other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
+}
+
+
+/*
+    DROPPING PAINT
 */
 
 let drops = [];
+const detail = 1000;
 
 class Drop {
-    constructor(x, y, r) {
-        this.x = x;
-        this.y = y;
+    constructor(x, y, r, color = 'black') {
+        this.origin = new Vector(x, y);
         this.r = r;
+        this.color = color;
+        this.vertices = [];
+
+        for (let i = 0; i < detail; i++) {
+            const angle = (2 * Math.PI * i)/detail;
+            const v = new Vector(Math.cos(angle), Math.sin(angle));
+            v.scale(r);
+            this.vertices[i] = v;
+        }
+    }
+    marble(other) {
+        let difference = other.origin.copy();
+        difference.sub(this.origin);
+        const r = this.r;
+        for (let v of other.vertices) {
+            v.add(difference); // now wrt to this.origin
+            const m = v.lengthSq();
+            const scalar = Math.sqrt(1 + (r*r)/m)
+            v.scale(scalar);
+            v.sub(difference); // again wrt to other.origin
+        }
     }
     show() {
-        circle(this.x, this.y, this.r, 'black');
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        const last = this.vertices[detail-1];
+        const o = this.origin;
+        ctx.moveTo(o.x + last.x, o.y + last.y);
+        for (let v of this.vertices) {
+            ctx.lineTo(o.x + v.x, o.y + v.y);
+        }
+        ctx.fill();
     }
 }
 
 document.onmousedown = function (e) {
-    let drop = new Drop(e.pageX, e.pageY, 50)
+    const drop = new Drop(e.pageX, e.pageY, 100, randomRGB())
+
+    for (let other of drops) {
+        drop.marble(other);
+    }
+
     drops.push(drop);
-}
-
-
-/*
-    BALLS
-*/
-
-class Ball {
-    constructor(x, y, velX, velY, color, size) {
-        this.x = x;
-        this.y = y;
-        this.velX = velX;
-        this.velY = velY;
-        this.color = color;
-        this.size = size;
-    }
-    draw() { 
-        circle(this.x, this.y, this.size, this.color);
-    }
-    update() {
-        if (this.x + this.size >= width) {
-            this.velX = -this.velX;
-        }
-
-        if (this.x - this.size <= 0) {
-            this.velX = -this.velX;
-        }
-
-        if (this.y + this.size >= height) {
-            this.velY = -this.velY;
-        }
-
-        if (this.y - this.size <= 0) {
-            this.velY = -this.velY;
-        }
-
-        this.x += this.velX;
-        this.y += this.velY;
-    }
-    collisionDetect() {
-        for (const ball of balls) {
-            if (this !== ball) {
-                const dx = this.x - ball.x;
-                const dy = this.y - ball.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < this.size + ball.size) {
-                    ball.color = this.color = randomRGB();
-                }
-            }
-        }
-    }
-}
-
-const balls = [];
-
-while (balls.length < 25) {
-    const size = random(10, 20);
-    const ball = new Ball(
-        // ball position always drawn at least one ball width
-        // away from the edge of the canvas, to avoid drawing errors
-        random(0 + size, width - size),
-        random(0 + size, height - size),
-        random(-7, 7),
-        random(-7, 7),
-        randomRGB(),
-        size,
-    );
-
-    balls.push(ball);
 }
 
 
@@ -121,12 +137,7 @@ while (balls.length < 25) {
 */
 
 function draw() {
-    /*for (const ball of balls) {
-        ball.draw();
-        ball.update();
-        ball.collisionDetect();
-    }*/
-    for (const drop of drops) {
+    for (let drop of drops) {
         drop.show();
     }
 }
