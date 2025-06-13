@@ -1,6 +1,6 @@
 html,body {
-	margin:0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	font-family: Arial, sans-serif;
 	font-size: 30px; /* for older browsers */
 	font-size: 3.5vw;
@@ -9,26 +9,29 @@ html,body {
 }
 
 .dehnsurgeon {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     width: 100%;
-    z-index: 0;
+    opacity: 0.9;
+    z-index: 1;
 }
 
 .banner {
-    margin: auto;
+    margin: 0px;
     padding: 10px;
     width: 60%;
     max-width: 600px;
     opacity: 0.9;
-    z-index: 0;
+    z-index: 1;
 }
 
-canvas {
+.background {
+    margin: 0px;
+    padding: 0px;
     position:absolute;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    z-index: 1;
+    z-index: 0;
 }

@@ -28,6 +28,48 @@ function randomRGB() {
     return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
 
+function modexp(a, b, n) {
+    let c = 1;
+    for (let i = 0; i < b; i++) {
+        c = (c*a) % n;
+    }
+    return c;
+}
+
+const smallprimes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
+function millerrabin(n, k=50) {
+    if (n < 2) {
+        return false;
+    }
+    for (let p of smallprimes) {
+        if (n % p === 0) {
+            return (n === p);
+        }
+    }
+    let s = 0;
+    let d = n-1;
+    while (d % 2 === 0) {
+        d = d/2;
+        s++;
+    }
+    let x = 0;
+    let y = 0;
+    for (let i = 0; i < k; i++) {
+        x = modexp(random(2, n-2), d, n);
+        for (let j = 0; j < s; j++) {
+            y = (x*x) % n;
+            if ((y === 1) && (x !== 1) && (x !== n-1)) {
+                return false;
+            }
+            x = y;
+        }
+        if (y !== 1) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // draw circle
 function circle(x, y, r, color) {
     ctx.beginPath();
@@ -58,9 +100,6 @@ class Vector {
         this.x = this.x * c;
         this.y = this.y * c;
     }
-    length() {
-        return Math.sqrt((this.x * this.x) + (this.y * this.y));
-    }
     lengthSq() {
         return (this.x * this.x) + (this.y * this.y);
     }
@@ -80,13 +119,19 @@ class Vector {
 */
 
 let drops = [];
-const detail = 1000;
+const detail = 10000;
+const dropcap = 30;
+const opacityincrease = 0.02;
+const opacitydescrease = 0.01;
+const dropradius = 2*Math.sqrt(width + height);
 
 class Drop {
-    constructor(x, y, r, color = 'black') {
+    constructor(x, y, r, color, opacity = 0) {
         this.origin = new Vector(x, y);
-        this.r = r;
         this.color = color;
+        this.opacity = opacity;
+        this.young = true;
+        this.marblecount = 0;
         this.vertices = [];
 
         for (let i = 0; i < detail; i++) {
@@ -96,10 +141,9 @@ class Drop {
             this.vertices[i] = v;
         }
     }
-    marble(other) {
+    marble(other, r) {
         let difference = other.origin.copy();
         difference.sub(this.origin);
-        const r = this.r;
         for (let v of other.vertices) {
             v.add(difference); // now wrt to this.origin
             const m = v.lengthSq();
@@ -107,10 +151,21 @@ class Drop {
             v.scale(scalar);
             v.sub(difference); // again wrt to other.origin
         }
+        other.marblecount++;
+        if (other.young && other.marblecount > dropcap/3) {
+            other.young = false;
+        }
     }
     show() {
         ctx.beginPath();
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = this.color.slice(0,3) + 'a' + this.color.slice(3,-1) + ',' + this.opacity + ')';
+        let a = 0;
+        if (this.young) {
+            a = opacityincrease;
+        } else {
+            a = -opacitydescrease;
+        }
+        this.opacity = Math.min(Math.max(this.opacity + a, 0), 1);
         const last = this.vertices[detail-1];
         const o = this.origin;
         ctx.moveTo(o.x + last.x, o.y + last.y);
@@ -121,14 +176,19 @@ class Drop {
     }
 }
 
-document.onmousedown = function (e) {
-    const drop = new Drop(e.pageX, e.pageY, 2*Math.sqrt(window.innerWidth + window.innerHeight), randomRGB())
-
+function dropink(x, y, r, color) {
+    const drop = new Drop(x, y, r, color)
     for (let other of drops) {
-        drop.marble(other);
+        drop.marble(other, r);
     }
-
     drops.push(drop);
+    if (drops.length > dropcap) {
+        drops.shift();
+    }
+}
+
+document.onmousedown = function (e) {
+    dropink(e.pageX, e.pageY, dropradius, randomRGB());
 }
 
 
@@ -142,10 +202,16 @@ function draw() {
     }
 }
 
+const step = 20;
+let counter = 0;
 // animation loop
 function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw();
+    if ((counter % step === 0) && millerrabin(counter/step)) {
+        dropink(random(width/4, (3*width)/4), random(height/4, (3*height)/4), dropradius, randomRGB());
+    }
+    counter++;
     requestAnimationFrame(loop);
 }
 
