@@ -24,8 +24,8 @@ function random(min, max) {
 }
 
 // generate random color
-function randomRGB() {
-    return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+function randomRGB(redmin = 0, greenmin = 0, bluemin = 0, redmax = 255, greenmax = 255, bluemax = 255) {
+    return `rgb(${random(redmin, redmax)},${random(greenmin, greenmax)},${random(bluemin, bluemax)})`;
 }
 
 function modexp(a, b, n) {
@@ -118,6 +118,8 @@ class Vector {
     DROPPING PAINT
 */
 
+// TODO: improve efficiency
+
 let drops = [];
 const detail = 10000;
 const dropcap = 30;
@@ -142,6 +144,7 @@ class Drop {
         }
     }
     marble(other, r) {
+        // TODO: add "simplification" of vertices after marbling
         let difference = other.origin.copy();
         difference.sub(this.origin);
         for (let v of other.vertices) {
@@ -187,9 +190,11 @@ function dropink(x, y, r, color) {
     }
 }
 
+/*
 document.onmousedown = function (e) {
     dropink(e.pageX, e.pageY, dropradius, randomRGB());
 }
+*/
 
 
 /*
@@ -209,7 +214,7 @@ function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw();
     if ((counter % step === 0) && millerrabin(counter/step)) {
-        dropink(random(width/4, (3*width)/4), random(height/4, (3*height)/4), dropradius, randomRGB());
+        dropink(random(width/4, (3*width)/4), random(height/4, (3*height)/4), dropradius, randomRGB(100, 50, 100, 200, 150, 200));
     }
     counter++;
     requestAnimationFrame(loop);
