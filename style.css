@@ -1,0 +1,63 @@
+html,body {
+	margin: 0px;
+	padding: 0px;
+	font-family: Courier New, monospace;
+	font-size: 25px; /* for older browsers */
+	font-size: 1.2vw;
+    color: #FFFDF5;
+	background-color: #cca3ae;
+    margin-bottom:50px;
+    transition: .4s;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.flex-box {
+    width: 1500px;
+    height: 100px;
+    padding: 15px;
+}
+
+/* taken from Kyle's site */
+
+#side:link{
+    font-size:100%;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    background-color: #f44336;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'VT323', monospace;
+}
+#side:visited{
+    background-color: rgb(221, 60, 60);
+    font-size:100%;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'VT323', monospace;
+}
+#side:hover, #side:active{
+    background-color: red;
+    font-size:100%;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'VT323', monospace;
+}
