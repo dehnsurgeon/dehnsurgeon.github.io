@@ -117,11 +117,9 @@ class Vector {
 /*
     DROPPING PAINT
 */
-
-// TODO: improve efficiency
-
+ ``
 let drops = [];
-const detail = 10000;
+const detail = 20;
 const dropcap = 30;
 const opacityincrease = 0.02;
 const opacitydescrease = 0.01;
@@ -130,12 +128,15 @@ const dropradius = 2*Math.sqrt(width + height);
 class Drop {
     constructor(x, y, r, color, opacity = 0) {
         this.origin = new Vector(x, y);
+        this.radius = r;
         this.color = color;
         this.opacity = opacity;
+
         this.young = true;
         this.marblecount = 0;
-        this.vertices = [];
 
+        this.vertices = [];
+        this.detail = detail;
         for (let i = 0; i < detail; i++) {
             const angle = (2 * Math.PI * i)/detail;
             const v = new Vector(Math.cos(angle), Math.sin(angle));
@@ -143,9 +144,32 @@ class Drop {
             this.vertices[i] = v;
         }
     }
-    marble(other, r) {
-        // TODO: add "simplification" of vertices after marbling
-        let difference = other.origin.copy();
+    refine() {
+        // add averages when vertices too far apart
+        let i = 0;
+        while (i < this.detail) {
+            let index = i-1;
+            if (index < 0) {
+                index = this.detail-1;
+            }
+            const v = this.vertices[index];
+            const w = this.vertices[i];
+            const difference = v.copy();
+            difference.sub(w);
+            const dx = (2 * Math.PI * this.radius)/detail;
+            if (difference.lengthSq() > dx * dx) {
+                const average = v.copy();
+                average.add(w);
+                average.scale(0.5);
+                this.vertices.splice(i, 0, average);
+                this.detail++;
+            }
+            i++;
+        }
+    }
+    marble(other) {
+        const r = this.radius;
+        const difference = other.origin.copy();
         difference.sub(this.origin);
         for (let v of other.vertices) {
             v.add(difference); // now wrt to this.origin
@@ -158,6 +182,7 @@ class Drop {
         if (other.young && other.marblecount > dropcap/3) {
             other.young = false;
         }
+        //other.refine();
     }
     show() {
         ctx.beginPath();
@@ -169,11 +194,12 @@ class Drop {
             a = -opacitydescrease;
         }
         this.opacity = Math.min(Math.max(this.opacity + a, 0), 1);
-        const last = this.vertices[detail-1];
+        const last = this.vertices[this.detail-1];
         const o = this.origin;
-        ctx.moveTo(o.x + last.x, o.y + last.y);
+        //ctx.moveTo(o.x + last.x, o.y + last.y);
         for (let v of this.vertices) {
-            ctx.lineTo(o.x + v.x, o.y + v.y);
+            circle(o.x + v.x, o.y + v.y, 1, 'black');
+            //ctx.lineTo(o.x + v.x, o.y + v.y);
         }
         ctx.fill();
     }
@@ -182,7 +208,7 @@ class Drop {
 function dropink(x, y, r, color) {
     const drop = new Drop(x, y, r, color)
     for (let other of drops) {
-        drop.marble(other, r);
+        drop.marble(other);
     }
     drops.push(drop);
     if (drops.length > dropcap) {
@@ -190,15 +216,15 @@ function dropink(x, y, r, color) {
     }
 }
 
+
+/*
+    ANIMATION
+*/
+
 /*
 document.onmousedown = function (e) {
     dropink(e.pageX, e.pageY, dropradius, randomRGB());
 }
-*/
-
-
-/*
-    ANIMATION
 */
 
 function draw() {
