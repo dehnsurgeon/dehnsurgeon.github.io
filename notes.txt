@@ -1,7 +1,0 @@
-white #FFFDF5
-black #0C0C0C
-
-background #cca3ae
-
-purple #B279F2
-green #39BC37
