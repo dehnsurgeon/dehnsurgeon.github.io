@@ -1,6 +1,6 @@
-html,body {
-	margin: 0px;
-	padding: 0px;
+body {
+	margin-top: 3.5vw;
+    margin-left: 5vw;
 	font-family: Courier New, monospace;
 	font-size: 28px; /* for older browsers */
 	font-size: 1.5vw;
