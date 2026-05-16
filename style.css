@@ -57,6 +57,22 @@ img {
     padding: 15px;
 }
 
+/* Responsive layout ... on small screens */
+@media (max-width: 600px) {
+
+body {
+    font-size: 112px; /* for older browsers */
+    font-size: 6vw;
+}
+
+h1 {
+    font-size: 336px; /* for older browsers */
+    font-size: 18vw;
+}
+
+}
+
+
 /*
 .flex-container {
     display: flex;
@@ -69,14 +85,6 @@ img {
     width: 1500px;
     height: 100px;
     padding: 15px;
-}
-*/
-
-
-/* Responsive layout ... on small screens */
-/*
-@media (max-width: 600px) {
-
 }
 */
 
