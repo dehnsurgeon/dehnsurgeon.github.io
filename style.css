@@ -32,18 +32,32 @@ footer, header, hgroup, menu, nav, section {
 
 /* STYLES BEGIN HERE */
 
+
 body {
-	/*margin-top: 3.5vw;
-    margin-left: 5vw;*/
-	font-family: Courier New, monospace;
-	font-size: 28px; /* for older browsers */
-	font-size: 1.5vw;
-    color: #FFFDF5;
-	background-color: #cca3ae;
-    /*margin-bottom:50px;
-    transition: .4s;*/
+    font-family: Courier New, monospace;
+    font-size: 28px; /* for older browsers */
+    font-size: 1.5vw;
+    color: #212121;
+    background-color: #f2edee;
+    text-align: center;
+    padding: 15px;
 }
 
+h1 {
+    font-size: 84px; /* for older browsers */
+    font-size: 4.5vw;
+    padding: 15px;
+}
+
+p {
+    padding: 15px;
+}
+
+img {
+    padding: 15px;
+}
+
+/*
 .flex-container {
     display: flex;
     justify-content: center;
@@ -56,15 +70,18 @@ body {
     height: 100px;
     padding: 15px;
 }
+*/
 
 
 /* Responsive layout ... on small screens */
+/*
 @media (max-width: 600px) {
 
 }
+*/
 
 /* taken from Kyle's site */
-
+/*
 #side:link{
     font-size:100%;
     margin-top: 2px;
@@ -101,3 +118,4 @@ body {
     display: inline-block;
     font-family: 'VT323', monospace;
 }
+*/
